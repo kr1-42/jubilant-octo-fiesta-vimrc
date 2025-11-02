@@ -1,0 +1,13 @@
+call plug#begin('~/.vim/plugged')
+
+Plug 'preservim/nerdtree'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'altercation/vim-colors-solarized'
+Plug 'mhinz/vim-startify'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'tpope/vim-dispatch'
+Plug 'edkolev/promptline.vim'
+Plug 'vim-syntastic/syntastic'
+
+call plug#end()
