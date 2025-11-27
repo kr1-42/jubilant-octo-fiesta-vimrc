@@ -1,6 +1,7 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'preservim/nerdtree'
+Plug 'kuri-sun/yoda.nvim'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'altercation/vim-colors-solarized'
 Plug 'mhinz/vim-startify'
