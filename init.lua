@@ -69,6 +69,7 @@ require("lazy").setup({
   { "hrsh7th/cmp-nvim-lsp" },
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   -- highlight word
     {
         "sontungexpt/stcursorword",
@@ -105,6 +106,8 @@ require("lazy").setup({
 },
 =======
 >>>>>>> parent of c5f0107 (fixed nvim)
+=======
+>>>>>>> parent of c5f0107 (fixed nvim)
 })
 
 --------------------------------------------------------------
@@ -116,6 +119,7 @@ require('buffertabs').setup()
 -- NvimTree Config
 --------------------------------------------------------------
 require("nvim-tree").setup()
+<<<<<<< HEAD
 
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
@@ -129,6 +133,15 @@ vim.api.nvim_create_autocmd("VimEnter", {
 --------------------------------------------------------------
 vim.cmd("colorscheme cyberdream")
 =======
+>>>>>>> parent of c5f0107 (fixed nvim)
+=======
+
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    require("nvim-tree.api").tree.open()
+  end
+})
+
 >>>>>>> parent of c5f0107 (fixed nvim)
 --------------------------------------------------------------
 -- Lualine Config
@@ -205,16 +218,24 @@ vim.keymap.set("n", "<C-N>", ":bnext<CR>")
 vim.keymap.set("n", "<C-P>", ":bprev<CR>")
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 -- Auto-pairs
 vim.keymap.set("i", "$6", "()<Left>")
 vim.keymap.set("i", "$2", "#include \"\"<Left>")
 vim.keymap.set("i", "$3", "[]<Left>")
 vim.keymap.set("i", "$4", "{}<Left>")
 vim.keymap.set("i", "$1", "{<CR>}<Esc>O")
+=======
+vim.keymap.set("i", "$1", "()<Left>")
+vim.keymap.set("i", "$2", "[]<Left>")
+vim.keymap.set("i", "$3", "{}<Left>")
+vim.keymap.set("i", "$4", "{<CR>}<Esc>O")
+>>>>>>> parent of c5f0107 (fixed nvim)
 vim.keymap.set("i", "$q", "''<Left>")
 vim.keymap.set("i", "$e", '""<Left>')
 
 --------------------------------------------------------------
+<<<<<<< HEAD
 -- check norm file (F)
 --------------------------------------------------------------
 function normcheck()
@@ -234,6 +255,8 @@ vim.keymap.set("i", "$e", '""<Left>')
 
 >>>>>>> parent of c5f0107 (fixed nvim)
 --------------------------------------------------------------
+=======
+>>>>>>> parent of c5f0107 (fixed nvim)
 -- compile & run (f5)
 --------------------------------------------------------------
 function CompileRun()
