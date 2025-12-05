@@ -1,3 +1,4 @@
+vim.cmd('source ~/stdheader.vim')
 --------------------------------------------------------------
 -- Basic Options
 --------------------------------------------------------------
@@ -83,13 +84,34 @@ require("lazy").setup({
     {
   "nvim-tree/nvim-tree.lua"
     },
+{
+  "brenton-leighton/multiple-cursors.nvim",
+  version = "*",  -- Use the latest tagged version
+  opts = {},  -- This causes the plugin setup function to be called
+  keys = {
+    {"<C-Up>", "<Cmd>MultipleCursorsAddUp<CR>", mode = {"n", "i", "x"}, desc = "Add cursor and move up"},
+    {"<C-Down>", "<Cmd>MultipleCursorsAddDown<CR>", mode = {"n", "i", "x"}, desc = "Add cursor and move down"},
+
+    {"<C-LeftMouse>", "<Cmd>MultipleCursorsMouseAddDelete<CR>", mode = {"n", "i"}, desc = "Add or remove cursor"},
+
+    {"<Leader>m", "<Cmd>MultipleCursorsAddVisualArea<CR>", mode = {"x"}, desc = "Add cursors to the lines of the visual area"},
+
+    {"<Leader>a", "<Cmd>MultipleCursorsAddMatches<CR>", mode = {"n", "x"}, desc = "Add cursors to cword"},
+    {"<Leader>A", "<Cmd>MultipleCursorsAddMatchesV<CR>", mode = {"n", "x"}, desc = "Add cursors to cword in previous area"},
+
+    {"<Leader>d", "<Cmd>MultipleCursorsAddJumpNextMatch<CR>", mode = {"n", "x"}, desc = "Add cursor and jump to next cword"},
+    {"<Leader>D", "<Cmd>MultipleCursorsJumpNextMatch<CR>", mode = {"n", "x"}, desc = "Jump to next cword"},
+
+    {"<Leader>l", "<Cmd>MultipleCursorsLock<CR>", mode = {"n", "x"}, desc = "Lock virtual cursors"},
+  },
+},
 })
 
 
 --------------------------------------------------------------
 -- Colorscheme activation
 --------------------------------------------------------------
-vim.cmd("colorscheme nord")
+vim.cmd("colorscheme cyberdream")
 --------------------------------------------------------------
 -- Lualine Config
 --------------------------------------------------------------
@@ -173,18 +195,26 @@ vim.keymap.set("n", "<C-S>", "<C-B>zz")
 vim.keymap.set("i", "jj", "<Esc>")
 vim.keymap.set("n", "<C-N>", ":bnext<CR>")
 vim.keymap.set("n", "<C-P>", ":bprev<CR>")
-vim.keymap.set("n", "<leader>tn", ":LuxtermNew<CR>", { desc = "New terminal" })
-vim.keymap.set("n", "<leader>t", ":LuxtermToggle<CR>", { desc = "New terminal" })
 
 -- Auto-pairs
-vim.keymap.set("i", "$2", "()<Left>")
+vim.keymap.set("i", "$6", "()<Left>")
+vim.keymap.set("i", "$2", "#include \"\"<Left>")
 vim.keymap.set("i", "$3", "[]<Left>")
 vim.keymap.set("i", "$4", "{}<Left>")
 vim.keymap.set("i", "$1", "{<CR>}<Esc>O")
 vim.keymap.set("i", "$q", "''<Left>")
 vim.keymap.set("i", "$e", '""<Left>')
 
+--------------------------------------------------------------
+-- check norm file (F)
+--------------------------------------------------------------
+function normcheck()
+	vim.cmd("write")
+	vim.cmd("!norminette -R CheckDefine %")
+end
 
+vim.keymap.set("n", "<F6>", normcheck)
+vim.keymap.set("i", "<F6>", "<Esc>:lua normcheck()<CR>")
 --------------------------------------------------------------
 -- Compile & Run (F5)
 --------------------------------------------------------------
@@ -194,7 +224,7 @@ function CompileRun()
   local ft = vim.bo.filetype
 
   if ft == "c" then
-    vim.cmd("!gcc % -o %< && time ./%<")
+    vim.cmd("!gcc % -o a.out && time ./a.out")
   elseif ft == "cpp" then
     vim.cmd("!g++ % -o %< && time ./%<")
   elseif ft == "java" then
