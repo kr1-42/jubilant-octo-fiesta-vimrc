@@ -1,4 +1,6 @@
 vim.cmd('source ~/stdheader.vim')
+vim.cmd('source ~/gdb.vim')
+vim.cmd('source ~/rmautologin.vim')
 --------------------------------------------------------------
 -- Basic Options
 --------------------------------------------------------------
@@ -43,8 +45,9 @@ require("lazy").setup({
 
   -- Statusline
   { "nvim-lualine/lualine.nvim" },
-
+	
   -- Colorscheme
+	 { "rebelot/kanagawa.nvim" },
    {
     "gbprod/nord.nvim",
     lazy = false,
@@ -111,7 +114,7 @@ require("lazy").setup({
 --------------------------------------------------------------
 -- Colorscheme activation
 --------------------------------------------------------------
-vim.cmd("colorscheme cyberdream")
+vim.cmd("colorscheme kanagawa")
 --------------------------------------------------------------
 -- Lualine Config
 --------------------------------------------------------------
@@ -206,11 +209,24 @@ vim.keymap.set("i", "$q", "''<Left>")
 vim.keymap.set("i", "$e", '""<Left>')
 
 --------------------------------------------------------------
--- check norm file (F)
+-- write + make + open main.c complierun() (F6)
+--------------------------------------------------------------
+function wmake()
+	vim.cmd("write")
+	vim.cmd("make")
+	if vim.fn.filereadable("main.c") == 1 then
+		vim.cmd("e main.c")
+	end
+	CompileRun()
+end
+vim.keymap.set("n", "<F7>", wmake)
+vim.keymap.set("i", "<F7>", "<Esc>:lua wmake()<CR>")
+--------------------------------------------------------------
+-- check norm file (F6)
 --------------------------------------------------------------
 function normcheck()
 	vim.cmd("write")
-	vim.cmd("!norminette -R CheckDefine %")
+	vim.cmd("!norminette %")
 end
 
 vim.keymap.set("n", "<F6>", normcheck)
@@ -224,7 +240,7 @@ function CompileRun()
   local ft = vim.bo.filetype
 
   if ft == "c" then
-    vim.cmd("!gcc % -o a.out && time ./a.out")
+    vim.cmd("!gcc  % get_next_line_utils.c -o a.out && valgrind --leak-check=full -s ./a.out")
   elseif ft == "cpp" then
     vim.cmd("!g++ % -o %< && time ./%<")
   elseif ft == "java" then
@@ -234,7 +250,7 @@ function CompileRun()
   elseif ft == "python" then
     vim.cmd("!time python3 %")
   elseif ft == "html" then
-    vim.cmd("!google-chrome % &")
+    vim.cmd("!google-kanagawa")
   elseif ft == "go" then
     vim.cmd("!go build %< && time go run %")
   elseif ft == "matlab" then
@@ -414,16 +430,31 @@ require("nvim-web-devicons").setup({
     },
   },
 
-  override_by_operating_system = {
-    ["apple"] = {
-      icon = "",
-      color = "#A2AAAD",
-      cterm_color = "248",
-      name = "Apple",
-    },
-  },
 })
 --------------------------------------------------------------
 -- termintegration
 --------------------------------------------------------------
-require("luxterm.config").apply_preset("compact")
+require('kanagawa').setup({
+    compile = false,             -- enable compiling the colorscheme
+    undercurl = true,            -- enable undercurls
+    commentStyle = { italic = true },
+    functionStyle = {},
+    keywordStyle = { italic = true},
+    statementStyle = { bold = true },
+    typeStyle = {},
+    transparent = true,         -- do not set background color
+    dimInactive = false,         -- dim inactive window `:h hl-NormalNC`
+    terminalColors = true,       -- define vim.g.terminal_color_{0,17}
+    colors = {                   -- add/modify theme and palette colors
+        palette = {},
+        theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
+    },
+    overrides = function(colors) -- add/modify highlights
+        return {}
+    end,
+    theme = "dragon",              -- Load "wave" theme
+    background = {               -- map the value of 'background' option to a theme
+        dark = "wave",           -- try "dragon" !
+        light = "lotus"
+    },
+})
