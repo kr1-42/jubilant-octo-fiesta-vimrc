@@ -1,0 +1,1 @@
+export PATH=/home/chrilomb/.local/nvim/nvim-linux/bin:/home/chrilomb/.local/kitty.app/bin:/home/chrilomb/.local/nvim/nvim-linux/bin:/opt/openssl-quic/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/chrilomb/.dotnet/tools
